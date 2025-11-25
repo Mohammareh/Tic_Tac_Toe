@@ -109,6 +109,14 @@ const gameController = (() => {
 
   getBoxFunction = () => boxesF;
 
+  function getTurn() {
+    if (turn === "X") {
+      return "X Turn";
+    } else if (turn === "O") {
+      return "O Turn";
+    }
+  }
+
   return {
     getBoxFunction,
     getWinnings,
@@ -116,6 +124,7 @@ const gameController = (() => {
     oWins,
     tiee,
     resetWinnings,
+    getTurn,
   };
 })();
 
@@ -140,6 +149,7 @@ const domItems = (() => {
   const spn = document.getElementById("second-player-name");
   const playBtn = document.getElementById("play-button");
   const formC = document.getElementById("take-name-form-container");
+  const turnText = document.getElementById("turn-text");
 
   playBtn.addEventListener("click", () => {
     if (!fpn.value && spn.value) {
@@ -152,6 +162,7 @@ const domItems = (() => {
       firstH3.textContent = fpn.value;
       secondH3.textContent = spn.value;
     }
+    turnText.textContent = gameController.getTurn();
 
     formC.style.display = "none";
   });
@@ -207,6 +218,8 @@ const domItems = (() => {
 
     gameController.resetWinnings();
     againBtn.style.visibility = "hidden";
+
+    turnText.textContent = gameController.getTurn();
 
     winnerText.textContent = "";
   });
